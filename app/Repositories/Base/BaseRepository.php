@@ -44,7 +44,7 @@ abstract class BaseRepository implements IBaseRepository
      *
      * @return mixed
      */
-    public function getByCondition(array $condition, array $columns = SELECT_ALL)
+    public function getByCondition(array $condition, array $columns = ['*'])
     {
         return $this->model->newQuery()
             ->where($condition)
@@ -59,7 +59,7 @@ abstract class BaseRepository implements IBaseRepository
      *
      * @return Builder
      */
-    public function getDetail(array $input, array $columns = SELECT_ALL)
+    public function getDetail(array $input, array $columns = ['*'])
     {
         return $this->model
             ->newQuery()

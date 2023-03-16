@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Constants\CategoryConstant;
+use App\Constants\ImageProductConstant;
+use App\Constants\ManufacturerConstant;
+use App\Constants\ProductConstant;
 use App\Http\Controllers\Controller;
 use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
@@ -36,7 +40,20 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryRepository->getByCondition([], ['*']);
-        dd($categories);
+        $categories = $this->categoryRepository->getByCondition([])->toArray();
+        $condition = [
+          ProductConstant::INPUT_SALE => SORT_DESC
+        ];
+        $columnSelect = array_merge(
+            ProductConstant::COLUMN_SELECT,
+            CategoryConstant::COLUMN_SELECT,
+            ManufacturerConstant::COLUMN_SELECT
+        );
+        $products = $this->productReposity->getLimit($condition, 9, $columnSelect);
+        dd($products);
+
+        return view('page.index', compact('categories', 'products'));
+
+
     }
 }
