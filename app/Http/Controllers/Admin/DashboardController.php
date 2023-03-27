@@ -49,11 +49,17 @@ class DashboardController extends Controller
             CategoryConstant::COLUMN_SELECT,
             ManufacturerConstant::COLUMN_SELECT
         );
-        $products = $this->productReposity->getLimit($condition, 9, $columnSelect);
-        dd($products);
+        $products = $this->productReposity->getLimit($condition, 9, $columnSelect)->toArray();
 
         return view('page.index', compact('categories', 'products'));
+    }
 
+    public function detailProduct($id)
+    {
+        $product = $this->productReposity->getDetail([ProductConstant::INPUT_ID => $id])->first();
+        $product->load('imageProduct');
+        $product = $product->toArray();
 
+        return view('modal.product-detail', compact('product'));
     }
 }

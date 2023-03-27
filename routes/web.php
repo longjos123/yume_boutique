@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use \App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,6 @@ Route::get('register', [AuthController::class, 'viewRegister'])->name('viewRegis
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::get('index', [DashboardController::class, 'index'])->name('index');
+Route::get('modal-product-detail/{id}', [DashboardController::class, 'detailProduct'])->name('modal_product_detail');
+Route::get('product-detail/{id}', [ProductController::class, 'detail'])->name('product_detail');
 

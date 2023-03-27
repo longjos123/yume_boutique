@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Constants\ImageProductConstant;
 use App\Constants\ProductConstant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
 {
@@ -18,8 +20,11 @@ class Product extends Model
         'category_id',
     ];
 
+    /**
+     * @return HasMany
+     */
     public function imageProduct()
     {
-        return $this->belongsTo(ImageProduct::class,ProductConstant::INPUT_ID, ImageProductConstant::INPUT_PRODUCT_ID);
+        return $this->hasMany(ImageProduct::class);
     }
 }
